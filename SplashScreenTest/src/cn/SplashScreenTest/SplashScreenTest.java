@@ -51,60 +51,6 @@ public class SplashScreenTest extends Activity {
 	}
     
     
-    /*@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-		// 按下键盘上返回按钮
-
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-			new AlertDialog.Builder(this)
-
-			// .setIcon(R.drawable.services)
-
-					.setTitle(R.string.prompt)
-
-					.setMessage(R.string.quit_desc)
-
-					.setNegativeButton(R.string.cancel,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-
-								}
-
-							})
-
-					.setPositiveButton(R.string.confirm,
-							new DialogInterface.OnClickListener() {
-
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-
-									finish();
-
-								}
-
-							}).show();
-
-			return true;
-
-		} else {
-
-			return super.onKeyDown(keyCode, event);
-
-		}
-
-	}
-
-	@Override
-	protected void onDestroy() {
-
-		super.onDestroy();
-
-		System.exit(0);
-	}*/
+ 
     
 }
