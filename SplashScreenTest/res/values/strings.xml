@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, SplashScreenTest!</string>
+    <string name="app_name">SplashScreenTest</string>
+    <string name="prompt">quit?</string>
+    <string name="quit_desc">quit??</string>
+    <string name="cancel">cancel..</string>
+    <string name="confirm">confirm</string>
+</resources>
