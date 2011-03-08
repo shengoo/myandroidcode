@@ -1,29 +1,18 @@
 package cn.qing.HelloAndroid;
 
-import android.R.layout;
 import android.app.Activity;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AlphaAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class HelloAndroid extends Activity implements OnClickListener {
 
-	private MediaController mc;
 	BottomBar bar;
-	private Display display;
 	private TopBar topBar;
 	private BottomBar bottomBar;
 	private AlphaAnimation fadeOut;
@@ -34,7 +23,7 @@ public class HelloAndroid extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		display = getWindowManager().getDefaultDisplay();
+		getWindowManager().getDefaultDisplay();
 		RelativeLayout layout = new RelativeLayout(this);
 		setContentView(layout);
 
