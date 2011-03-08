@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -57,6 +55,7 @@ public class DisplayHtml extends Activity {
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.addJavascriptInterface(new DemoJavaScriptInterface(), "demo");
         webView.loadUrl("file:///android_asset/demo.html");
+        //file:///sdcard/xxx.html
         layout.addView(webView);
     }
     
