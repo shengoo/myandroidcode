@@ -1,0 +1,215 @@
+body{
+	margin:0 auto;
+	padding:0;
+}
+
+div{
+}
+
+#window{
+position: absolute;
+left: 100px;
+top: 575px;
+}
+
+#fish{
+position: absolute;
+left: 230px;
+top: 190px;
+-webkit-animation-name: rotate; 
+-webkit-animation-duration: 20s;
+-webkit-animation-iteration-count:  infinite;
+-webkit-animation-timing-function: linear;
+
+}
+
+#fish2{
+position: absolute;
+left: 100px;
+top: 400px;
+-webkit-animation-name: rotate; 
+-webkit-animation-duration: 20s;
+-webkit-animation-iteration-count:  infinite;
+-webkit-animation-timing-function: linear;
+}
+
+#eyes{
+position: absolute;
+left: 263px;
+top: 517px;
+
+}
+
+#righteyebox{
+position: absolute;
+width: 0px
+height:0px;
+left: 335px;
+top: 530px;
+}
+
+#lefteyebox{
+position: absolute;
+width: 0px
+height:0px;
+left: 280px;
+top: 560px;
+}
+
+#eyes2{
+position: absolute;
+left: 400px;
+top: 316px;
+
+}
+
+#righteyebox2{
+position: absolute;
+width: 0px
+height:0px;
+left: 455px;
+top: 327px;
+}
+
+#lefteyebox2{
+position: absolute;
+width: 0px
+height:0px;
+left: 411px;
+top: 351px;
+}
+
+#righteye2{
+/*position:relative;*/
+
+-webkit-animation-duration: 10s;
+
+  -webkit-animation-name: eyerole;
+
+  -webkit-animation-iteration-count: infinite;
+
+  -webkit-transform-origin: 0px 0px;
+
+  -webkit-animation-timing-function: linear;
+
+}
+
+#lefteye2{
+/*position:relative;*/
+
+-webkit-animation-duration: 10s;
+
+  -webkit-animation-name: eyerole;
+
+  -webkit-animation-iteration-count: infinite;
+
+  -webkit-transform-origin: 0px 0px;
+
+  -webkit-animation-timing-function: linear;
+
+}
+
+#righteye{
+/*position:relative;*/
+
+-webkit-animation-duration: 10s;
+
+  -webkit-animation-name: eyerole;
+
+  -webkit-animation-iteration-count: infinite;
+
+  -webkit-transform-origin: 0px 0px;
+
+  -webkit-animation-timing-function: linear;
+
+}
+
+#lefteye{
+/*position:relative;*/
+
+-webkit-animation-duration: 10s;
+
+  -webkit-animation-name: eyerole;
+
+  -webkit-animation-iteration-count: infinite;
+
+  -webkit-transform-origin: 0px 0px;
+
+  -webkit-animation-timing-function: linear;
+
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes eyerole {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+
+#moons {
+	position:absolute;
+	left: 0px;
+	top: 0px;
+	height:303px;
+	width:304px;
+	margin:0 auto;
+}
+#moons img {
+	position:absolute;
+	left:0;
+	-webkit-transition: opacity 1s ease-in-out;
+	-moz-transition: opacity 1s ease-in-out;
+	-o-transition: opacity 1s ease-in-out;
+	transition: opacity 1s ease-in-out;
+}
+
+#moons img.transparent {
+	opacity:0.2;
+}
+
+#readtext.transparent {
+	opacity:0;
+}
+
+#readtext2.transparent {
+	opacity:0;
+}
+
+
+#readtext {
+position: absolute;
+text-align: center;
+left: 300px;
+top: 30px;
+font-family: Zapf Chancery, cursive; 
+font-size:40px;
+-webkit-transition: opacity 1s ease-in-out;
+	-moz-transition: opacity 1s ease-in-out;
+	-o-transition: opacity 1s ease-in-out;
+	transition: opacity 1s ease-in-out;
+}
+
+#readtext2 {
+position: absolute;
+text-align: center;
+left: 150px;
+top: 130px;
+font-family: Zapf Chancery, cursive; 
+font-size:40px;
+-webkit-transition: opacity 1s ease-in-out;
+	-moz-transition: opacity 1s ease-in-out;
+	-o-transition: opacity 1s ease-in-out;
+	transition: opacity 1s ease-in-out;
+}
