@@ -54,8 +54,9 @@ public class DisplayHtml extends Activity {
         
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.addJavascriptInterface(new DemoJavaScriptInterface(), "demo");
-        webView.loadUrl("file:///android_asset/demo.html");
-        //file:///sdcard/xxx.html
+        webView.loadUrl("file:///android_asset/demo.html");//asset folder
+        //file:///sdcard/xxx.html  sdcard file
+        //file:///data/data   internal storage
         layout.addView(webView);
     }
     
