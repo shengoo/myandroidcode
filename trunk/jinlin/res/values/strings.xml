@@ -9,4 +9,10 @@
     <string name="ncx_file_path">ncx_file_path</string>
     <string name="book_root_path">book_root_path1</string>
     <string name="font_size">font_size</string>
+    <string name="pre_button_text">上一章</string>
+    <string name="next_button_text">下一章</string>
+    <string name="chapter_button_text">返回目录</string>
+    <string name="history_flag">history_flag</string>
+    <string name="last_page_num">last_page_num</string>
+    <string name="last_page_pers">last_page_pers</string>
 </resources>

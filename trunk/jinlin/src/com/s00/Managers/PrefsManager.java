@@ -13,6 +13,26 @@ public class PrefsManager {
 	private Context mContext;
 	private SharedPreferences sprefs;
 	
+	public boolean hashistory() {
+		boolean result = false;
+		result = prefsGetBool(mContext.getString(R.string.history_flag));
+		return result;
+	}
+	
+	public int getLastnum() {
+		return prefsGetInt(mContext.getString(R.string.last_page_num));
+	}
+	
+	public float getLastPer() {
+		return prefsGetFloat(mContext.getString(R.string.last_page_pers));
+	}
+	
+	public void savehistory(int num,float per) {
+		prefsSetBool(mContext.getString(R.string.history_flag), true);
+		prefsSetInt(mContext.getString(R.string.last_page_num), num);
+		prefsSetFloat(mContext.getString(R.string.last_page_pers), per);
+	}
+	
 	public PrefsManager(Context context) {
 		mContext = context;
 		sprefs = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -27,6 +47,22 @@ public class PrefsManager {
 		if(prefsGetInt(mContext.getString(R.string.font_size)) != 0)
 			defaultSize = prefsGetInt(mContext.getString(R.string.font_size));
 		return defaultSize;
+	}
+	
+	public void prefsSetBool(String key, boolean val) {
+		Editor e = sprefs.edit();
+		e.putBoolean(key, val);
+		e.commit();
+	}
+	
+	public boolean prefsGetBool(String key) {
+		boolean boo = false;
+		try {
+			boo = sprefs.getBoolean(key, false);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return boo;
 	}
 	
 	public void prefsSetInt(String key, int val) {
@@ -55,6 +91,22 @@ public class PrefsManager {
 		try {
 			result = sprefs.getString(key, "");
 		} catch (ClassCastException e) {
+		}
+		return result;
+	}
+	
+	public void prefsSetFloat(String key,float val) {
+		Editor e = sprefs.edit();
+		e.putFloat(key, val);
+		e.commit();
+	}
+	
+	public float prefsGetFloat(String key) {
+		float result = 0;
+		try {
+			result = sprefs.getFloat(key, 0);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		return result;
 	}
