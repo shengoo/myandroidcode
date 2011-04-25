@@ -15,4 +15,8 @@
     <string name="history_flag">history_flag</string>
     <string name="last_page_num">last_page_num</string>
     <string name="last_page_pers">last_page_pers</string>
+    <string name="prompt">退出</string>
+    <string name="quit_desc">确定要退出程序吗？</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
 </resources>

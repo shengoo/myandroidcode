@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.s00.main;
@@ -45,7 +46,7 @@ public class BookViewController {
 	private int genID = new Random().nextInt(10000);
 	private TranslateAnimation chapterLeftOut;
 	private TranslateAnimation chapterLeftIn;
-
+	private AdView adView;
 
 	public BookViewController(Context context,Book boo) {
 		mContext = context;
@@ -67,9 +68,18 @@ public class BookViewController {
         controllBarClickListener = new ControllBarClickListener(mContext, this);
         content.setControllButtonsClickListener(controllBarClickListener);
         
-        AdView adView = new AdView(mContext);
+        adView = new AdView(mContext);
         LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         adView.setId(genID);
+        adView.setVisibility(View.INVISIBLE);
+        adView.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				adView.setVisibility(View.VISIBLE);
+			}
+		}, 1000*60);
         
         LayoutParams mainParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
         mainParams.addRule(RelativeLayout.BELOW,adView.getId());
@@ -121,6 +131,7 @@ public class BookViewController {
 	
 	public void showNext() {
 		if (currentPageNo == allPageNo) {
+			Toast.makeText(mContext, "已经是最后一章", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		currentPageNo++;
@@ -130,6 +141,7 @@ public class BookViewController {
 	
 	public void showPre() {
 		if (currentPageNo == 1) {
+			Toast.makeText(mContext, "已经是最前一章", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		currentPageNo--;

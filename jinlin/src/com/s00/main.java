@@ -3,7 +3,9 @@ package com.s00;
 import java.util.zip.ZipInputStream;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -74,7 +76,36 @@ public class main extends Activity {
 
 	
 	public void exitApp() {
-		finish();
+		new AlertDialog.Builder(this)
+
+		// .setIcon(R.drawable.services)
+
+				.setTitle(R.string.prompt)
+
+				.setMessage(R.string.quit_desc)
+
+				.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+
+							}
+
+						})
+
+				.setPositiveButton(R.string.confirm,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+
+								finish();
+
+							}
+
+						}).show();
 	}
 	
 	@Override
