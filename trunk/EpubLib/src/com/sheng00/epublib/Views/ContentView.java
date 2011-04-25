@@ -44,6 +44,7 @@ public class ContentView extends RelativeLayout {
 		webView = new WebView(context);
 		webView.setWebViewClient(new MyWebChromeClient());
 		webView.setInitialScale(100);
+		webView.getSettings().setDefaultFontSize(26);
 		LayoutParams webParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.FILL_PARENT);
 		webParams.addRule(RelativeLayout.BELOW, controllBar.getId());
