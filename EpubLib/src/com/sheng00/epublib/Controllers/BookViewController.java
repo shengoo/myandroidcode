@@ -171,6 +171,7 @@ public class BookViewController {
 	public void goBack() {
 		if (chapter.getVisibility() == View.INVISIBLE) {
 			chapter.setVisibility(View.VISIBLE);
+			chapter.startAnimation(chapterLeftIn);
 			savehistory();
 		}else {
 			((main)mContext).exitApp();
