@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World!</string>
-    <string name="app_name"></string>
+    <string name="app_name">main</string>
     <string name="meta_file_name">container.xml</string>
     <string name="meta_file_path">meta_file_path</string>
     <string name="root_file_path">root_file_path</string>
