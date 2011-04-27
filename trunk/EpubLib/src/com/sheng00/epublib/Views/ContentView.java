@@ -101,6 +101,7 @@ public class ContentView extends RelativeLayout {
 			}else {
 				progressBar.setVisibility(INVISIBLE);
 				webView.setVisibility(VISIBLE);
+				webView.scrollTo(0, 0);
 			}
 		}
 	}
