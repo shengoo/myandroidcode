@@ -48,9 +48,11 @@ public class hscrollTest extends Activity implements OnClickListener {
 		view2.setImageResource(R.drawable.sample_2);
 //		view0.setPadding(200, 0, 0, 0);
 		view1.setPadding(600, 0, 0, 0);
-		Gravity gravity = new Gravity();
-		linearLayout.addView(view1);
-		linearLayout.addView(view0);
+		AWebView aWebView = new AWebView(this, 300);
+		aWebView.loadUrl("http://www.baidu.com");
+		linearLayout.addView(aWebView,200,300);
+//		linearLayout.addView(view1);
+//		linearLayout.addView(view0);
 //		linearLayout.addView(view1,display.getWidth(),display.getHeight());
 //		linearLayout.addView(view2,display.getWidth(),display.getHeight());
 		Button button = new Button(this);
@@ -81,9 +83,9 @@ public class hscrollTest extends Activity implements OnClickListener {
 //	        } 
 //	     }.start();
 		TranslateAnimation translateAnimation = new TranslateAnimation(
-				0, -600, 0, 0);
+				0, -1200, 0, 0);
 		translateAnimation.setDuration(5000);
-		hscroll.startAnimation(translateAnimation);
+		linearLayout.startAnimation(translateAnimation);
 	}
 	
 }
