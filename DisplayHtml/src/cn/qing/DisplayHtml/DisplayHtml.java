@@ -2,6 +2,7 @@ package cn.qing.DisplayHtml;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebSettings.ZoomDensity;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.RelativeLayout.LayoutParams;
 /**
  * Demonstrates how to embed a WebView in your activity. Also demonstrates how
  * to have javascript in the WebView call into the activity, and how the activity 
@@ -32,7 +36,7 @@ public class DisplayHtml extends Activity {
 	private static final String LOG_TAG = "WebViewDemo";
 	Display display;
     private Handler mHandler = new Handler();
-    private WebView webView;
+    private AWebView webView;
 	Context context;
 	
     /** Called when the activity is first created. */
@@ -44,21 +48,48 @@ public class DisplayHtml extends Activity {
         
         LinearLayout layout = new LinearLayout(this);
         setContentView(layout);
-        webView = new WebView(this);
+        
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+        webView = new AWebView(this,200);
+        webView.setBackgroundColor(Color.YELLOW);
         
         WebSettings webSettings = webView.getSettings();
-        webSettings.setSavePassword(false);
-        webSettings.setSaveFormData(false);
+//        webSettings.setSavePassword(false);
+//        webSettings.setSaveFormData(false);
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setSupportZoom(false);
+//        webSettings.setSupportZoom(false);
+//        webSettings.setDefaultZoom(ZoomDensity.FAR);
+//        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+//        webSettings.setBuiltInZoomControls(true);
         
-        webView.setWebChromeClient(new MyWebChromeClient());
-        webView.addJavascriptInterface(new DemoJavaScriptInterface(), "demo");
-        webView.loadUrl("file:///android_asset/demo.html");//asset folder
+//        webView.setWebChromeClient(new MyWebChromeClient());
+//        webView.addJavascriptInterface(new DemoJavaScriptInterface(), "demo");
+        webView.setInitialScale(getScale());
+        webView.loadUrl("file:///android_asset/2_landscape.html");//asset folder
         //file:///sdcard/xxx.html  sdcard file
         //file:///data/data   internal storage
-        layout.addView(webView);
+        relativeLayout.setMinimumHeight(display.getHeight());
+        relativeLayout.setMinimumWidth(display.getWidth());
+        RelativeLayout.LayoutParams center = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        center.addRule(RelativeLayout.CENTER_IN_PARENT);
+        webView.setLayoutParams(center);
+        relativeLayout.addView(webView);
+        layout.addView(relativeLayout);
     }
+    private int getScale(){
+        int width = display.getWidth(); 
+        Double wval = new Double(width)/new Double(1024);
+        wval = wval * 100d;
+        Double hval	= new Double(display.getHeight())/new Double(768);
+        hval = hval * 100d;
+        if (wval < hval) {
+			return wval.intValue();
+		}else {
+			return hval.intValue();
+		}
+    }
+
     
     final class DemoJavaScriptInterface {
 
