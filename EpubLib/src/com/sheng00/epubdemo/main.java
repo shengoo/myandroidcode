@@ -69,7 +69,8 @@ public class main extends Activity {
     
     private void initContents() {
     	prefsManager = new PrefsManager(this);
-		String bookroot=this.getFilesDir().getAbsolutePath() + "/books/uuid/";
+		String bookroot=this.getFilesDir().getAbsolutePath() + "/contents/";
+		System.out.println(this.getString(R.string.book_root_path));
 		prefsManager.prefsSetString(this.getString(R.string.book_root_path), bookroot);
         xmlManager = new XmlManager(this);
         zipManager = new ZipManager(this);
