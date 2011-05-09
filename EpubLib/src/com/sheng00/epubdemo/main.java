@@ -5,13 +5,6 @@ package com.sheng00.epubdemo;
 
 import java.util.zip.ZipInputStream;
 
-import com.sheng00.epublib.R;
-import com.sheng00.epublib.Controllers.BookViewController;
-import com.sheng00.epublib.Managers.PrefsManager;
-import com.sheng00.epublib.Managers.XmlManager;
-import com.sheng00.epublib.Managers.ZipManager;
-import com.sheng00.epublib.Models.Book;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,7 +19,13 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
+import com.sheng00.epublib.R;
+import com.sheng00.epublib.Controllers.BookViewController;
+import com.sheng00.epublib.Managers.PrefsManager;
+import com.sheng00.epublib.Managers.XmlManager;
+import com.sheng00.epublib.Managers.ZipManager;
+import com.sheng00.epublib.Models.Book;
 
 /**
  * @author ShengQing on 2011-4-24

@@ -5,17 +5,17 @@ package com.sheng00.epublib.Views;
 
 import java.util.Random;
 
-import com.sheng00.epublib.Managers.PrefsManager;
-
 import android.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebSettings.TextSize;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.sheng00.epublib.Managers.PrefsManager;
 
 /**
  * @author ShengQing on 2011-4-23
@@ -73,8 +73,8 @@ public class ContentView extends RelativeLayout {
 		if (progressBar.getVisibility() != VISIBLE) {
 			progressBar.setVisibility(VISIBLE);
 		}
-		webView.loadUrl("file://" +path);//"file://" + 
 		scrollPercent = pers;
+		webView.loadUrl("file://" +path);//"file://" + 
 	}
 	
 	public float getScrollPer() {
@@ -111,11 +111,11 @@ public class ContentView extends RelativeLayout {
 //		refreshWebview(currentPers);
 	}
 	
-	private void refreshWebview(float pers){
-		int max = webView.getContentHeight();
-		int pos = (int) (max * pers);
-		webView.scrollTo(0, pos);
-	}
+//	private void refreshWebview(float pers){
+//		int max = webView.getContentHeight();
+//		int pos = (int) (max * pers);
+//		webView.scrollTo(0, pos);
+//	}
 
 	class MyWebChromeClient extends WebViewClient {
 		@Override
@@ -132,7 +132,7 @@ public class ContentView extends RelativeLayout {
 						int max = webView.getContentHeight();
 						int pos = (int) (max * scrollPercent);
 						webView.scrollTo(0, pos);
-//						Toast.makeText(mContext, "pers:" + scrollPercent + " " + pos, Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, "pers:" + scrollPercent + "    " + pos, Toast.LENGTH_SHORT).show();
 					}
 				}, 500);
 			}else {

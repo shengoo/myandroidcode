@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meta_file_name">container.xml</string>
+    <string name="meta_file_path">meta_file_path</string>
+    <string name="root_file_path">root_file_path</string>
+    <string name="opf_file_path">opf_file_path</string>
+    <string name="ncx_file_path">ncx_file_path</string>
+    <string name="book_root_path">book_root_path1</string>
+    <string name="font_size">font_size</string>
+    <string name="history_flag">history_flag</string>
+    <string name="last_page_num">last_page_num</string>
+    <string name="last_page_pers">last_page_pers</string>
+</resources>
