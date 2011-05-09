@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.sheng00.epubdemo.main;
 import com.sheng00.epublib.R;
+import com.sheng00.epublib.Config.GlobalConfig;
 import com.sheng00.epublib.Listeners.ControllBarClickListener;
 import com.sheng00.epublib.Managers.PrefsManager;
 import com.sheng00.epublib.Models.Book;
@@ -92,7 +93,7 @@ public class BookViewController {
         layout.addView(chapter,mainParams);
         
         chapterLeftOut = new TranslateAnimation(0, -display.getWidth(), 0, 0);
-        chapterLeftOut.setDuration(300);
+        chapterLeftOut.setDuration(GlobalConfig.ANIMATION_DURATION);
         chapterLeftOut.setAnimationListener(new AnimationListener() {
 			
 			@Override
@@ -110,11 +111,12 @@ public class BookViewController {
 			@Override
 			public void onAnimationEnd(Animation animation) {
 				// TODO Auto-generated method stub
-				chapter.setVisibility(View.INVISIBLE);
+//				chapter.setVisibility(View.INVISIBLE);
+				layout.removeView(chapter);
 			}
 		});
         chapterLeftIn = new TranslateAnimation(-display.getWidth(), 0,0,0);
-        chapterLeftIn.setDuration(300);
+        chapterLeftIn.setDuration(GlobalConfig.ANIMATION_DURATION);
         
 	}
 	
@@ -124,8 +126,7 @@ public class BookViewController {
 	 */
 	public void showChapters(boolean scrollto) {
 		savehistory();
-		chapter.setVisibility(View.VISIBLE);
-//		content.setVisibility(View.);
+		layout.addView(chapter);
 		if(scrollto){
 			showChapterAnimation();
 		}else {
@@ -169,8 +170,8 @@ public class BookViewController {
 	}
 	
 	public void goBack() {
-		if (chapter.getVisibility() == View.INVISIBLE) {
-			chapter.setVisibility(View.VISIBLE);
+		if (!chapter.isShown()) {
+			layout.addView(chapter);
 			chapter.startAnimation(chapterLeftIn);
 			savehistory();
 		}else {
@@ -188,50 +189,23 @@ public class BookViewController {
 	}
 
 
-
-
-
-
-
-
-
 	public RelativeLayout getLayout() {
 		return layout;
 	}
 
-
-
-
-
-
-
-
-
-	public int getCurrentPageNo() {
-		return currentPageNo;
+	public boolean isShowContent() {
+		if (layout.getChildCount() > 2) {
+			return false;
+		}
+		return true;
 	}
 
-	public void setCurrentPageNo(int currentPageNo) {
-		this.currentPageNo = currentPageNo;
+	public void zoomInFont() {
+		content.zoomInFont();
 	}
-
-
-
-
-
-
-	public Book getBook() {
-		return book;
+	
+	public void zoomOutFont() {
+		content.zoomOutFont();
 	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-
-	public int getAllPageNo() {
-		return allPageNo;
-	}
-
 
 }

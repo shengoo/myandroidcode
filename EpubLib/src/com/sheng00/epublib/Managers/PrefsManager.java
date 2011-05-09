@@ -45,7 +45,7 @@ public class PrefsManager {
 	}
 	
 	public int GetFontSize() {
-		int defaultSize = 26;
+		int defaultSize = 28;
 		if(prefsGetInt(mContext.getString(R.string.font_size)) != 0)
 			defaultSize = prefsGetInt(mContext.getString(R.string.font_size));
 		return defaultSize;

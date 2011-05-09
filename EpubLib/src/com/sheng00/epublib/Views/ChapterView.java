@@ -3,6 +3,7 @@
  */
 package com.sheng00.epublib.Views;
 
+import com.sheng00.epublib.R;
 import com.sheng00.epublib.Controllers.BookViewController;
 import com.sheng00.epublib.Managers.PrefsManager;
 import com.sheng00.epublib.Models.Book;
@@ -65,7 +66,7 @@ public class ChapterView extends ScrollView implements OnClickListener {
 
 		continuBtn = new Button(context);
 		continuBtn.setId(0);
-		continuBtn.setText("¼ÌÐøÉÏ´ÎÔÄ¶Á");
+		continuBtn.setText(R.string.continue_reading_button_text);
 		continuBtn.setOnClickListener(this);
 		continuBtn.setEnabled(hasHistory);
 		layout.addView(continuBtn,LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
