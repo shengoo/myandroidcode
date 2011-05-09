@@ -19,4 +19,7 @@
     <string name="first_chapter">It\'s the first chapter</string>
     <string name="last_chapter">It\'s the last chapter</string>
     <string name="continue_reading_button_text">continue reading</string>
+    <string name="zoomin_font_menu_text">Zoom in</string>
+    <string name="zoomout_font_menu_text">Zoom out</string>
+    <string name="exitapp_font_menu_text">Exit</string>
 </resources>
