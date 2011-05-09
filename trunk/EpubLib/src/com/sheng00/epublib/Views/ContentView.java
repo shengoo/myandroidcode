@@ -5,12 +5,15 @@ package com.sheng00.epublib.Views;
 
 import java.util.Random;
 
+import com.sheng00.epublib.Managers.PrefsManager;
+
 import android.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebSettings.TextSize;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -28,6 +31,7 @@ public class ContentView extends RelativeLayout {
 	private int genID = new Random().nextInt(10000);
 	
 	private float scrollPercent;
+	private PrefsManager prefsManager;
 
 	/**
 	 * @param context
@@ -35,6 +39,7 @@ public class ContentView extends RelativeLayout {
 	public ContentView(Context context) {
 		super(context);
 		mContext = context;
+		prefsManager = new PrefsManager(mContext);
 		// TODO Auto-generated constructor stub
 		controllBar = new ControllBar(context);
 		controllBar.setId(genID);
@@ -44,7 +49,7 @@ public class ContentView extends RelativeLayout {
 		webView = new WebView(context);
 		webView.setWebViewClient(new MyWebChromeClient());
 		webView.setInitialScale(100);
-		webView.getSettings().setDefaultFontSize(28);
+		webView.getSettings().setDefaultFontSize(prefsManager.GetFontSize());
 		LayoutParams webParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.FILL_PARENT);
 		webParams.addRule(RelativeLayout.BELOW, controllBar.getId());
@@ -78,6 +83,38 @@ public class ContentView extends RelativeLayout {
 		result = (float)webView.getScrollY()/(float)webView.getContentHeight();
 		
 		return result;
+	}
+	
+	public void zoomInFont() {
+		webView.zoomIn();
+		System.out.println(webView.getSettings().getDefaultFixedFontSize()
+				+ " " + webView.getSettings().getDefaultFontSize()
+				+ " " + webView.getSettings().getTextSize());
+//		int currentFontSize = webView.getSettings().getDefaultFontSize();
+//		currentFontSize += 2;
+//		float currentPers = (float)webView.getScrollY()/(float)webView.getContentHeight();
+//		webView.getSettings().setDefaultFontSize(currentFontSize);
+//		prefsManager.SetFontSize(currentFontSize);
+//		refreshWebview(currentPers);
+	}
+	
+	public void zoomOutFont() {
+		webView.zoomOut();
+		System.out.println(webView.getSettings().getDefaultFixedFontSize()
+				+ " " + webView.getSettings().getDefaultFontSize()
+				+ " " + webView.getSettings().getTextSize());
+//		int currentFontSize = webView.getSettings().getDefaultFontSize();
+//		currentFontSize -= 2;
+//		float currentPers = (float)webView.getScrollY()/(float)webView.getContentHeight();
+//		webView.getSettings().setDefaultFontSize(currentFontSize);
+//		prefsManager.SetFontSize(currentFontSize);
+//		refreshWebview(currentPers);
+	}
+	
+	private void refreshWebview(float pers){
+		int max = webView.getContentHeight();
+		int pos = (int) (max * pers);
+		webView.scrollTo(0, pos);
 	}
 
 	class MyWebChromeClient extends WebViewClient {
