@@ -13,7 +13,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.sheng00.epublib.Managers.PrefsManager;
 
@@ -132,7 +131,7 @@ public class ContentView extends RelativeLayout {
 						int max = webView.getContentHeight();
 						int pos = (int) (max * scrollPercent);
 						webView.scrollTo(0, pos);
-						Toast.makeText(mContext, "pers:" + scrollPercent + "    " + pos, Toast.LENGTH_SHORT).show();
+//						Toast.makeText(mContext, "pers:" + scrollPercent + "    " + pos, Toast.LENGTH_SHORT).show();
 					}
 				}, 500);
 			}else {

@@ -41,7 +41,7 @@ public class main extends Activity {
 	private ZipManager zipManager;
 	private RelativeLayout layout;
 	private ImageView splashView;
-	private Menu mMenu;
+//	private Menu mMenu;
 	private static Context CONTEXT;
 
 	/** Called when the activity is first created. */
@@ -89,7 +89,7 @@ public class main extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Hold on to this
-		mMenu = menu;
+//		mMenu = menu;
 
 		// Inflate the currently selected menu XML resource.
 		MenuInflater inflater = getMenuInflater();
