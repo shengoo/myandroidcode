@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-            <item android:id="@+id/zoomin"
-                android:title="增大" 
-				android:icon="@drawable/zoom_in"/>
-        
-            <item android:id="@+id/zoomout"
-                android:title="减小"
-                android:icon="@drawable/zoom_out"/>
-        <item android:id="@+id/exitapp"
-                android:title="退出"
-                android:icon="@drawable/application_exit"/>
-        
+	<item android:id="@+id/zoomin" android:icon="@drawable/zoom_in"
+		android:title="@string/zoomin_font_menu_text" />
+
+	<item android:id="@+id/zoomout" android:icon="@drawable/zoom_out"
+		android:title="@string/zoomout_font_menu_text" />
+		
+	<item android:id="@+id/exitapp" android:icon="@drawable/application_exit"
+		android:title="@string/exitapp_font_menu_text" />
+
 </menu>
