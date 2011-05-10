@@ -69,7 +69,7 @@ public class BatteryWatcher extends Service {
                 temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
                 voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
                 int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-                
+                System.out.println("level:" + level +"scale:" + scale);
                 showNotification(level * 100 / scale);
             }
         };
