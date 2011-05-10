@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">电池指示</string>
     <string name="notify_title">剩余电量</string>
+    <string name="start_message">电源指示已启动</string>
 </resources>

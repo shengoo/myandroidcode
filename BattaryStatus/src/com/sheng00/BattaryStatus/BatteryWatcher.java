@@ -34,7 +34,6 @@ public class BatteryWatcher extends Service {
 	private PendingIntent contentIntent;
 	
 	private static final int NOTIFY_ID = 1;
-	private int num = 1;
 	private static BatteryWatcher sInstance;
 
 
@@ -121,7 +120,7 @@ public class BatteryWatcher extends Service {
         // that you do this as well.  (Think of of the "New hardware found" or "Network connection
         // changed" messages that always pop up)
 		if (notification == null) {
-			notification = new Notification();
+			notification = new Notification(getNotiIcon(l),this.getString(R.string.start_message),System.currentTimeMillis());
 		}
 			notification.icon = getNotiIcon(l);
 			notification.when = System.currentTimeMillis();
@@ -131,7 +130,7 @@ public class BatteryWatcher extends Service {
                 new Intent(this, BattaryStatus.class), 0);
 
         // Set the info for the views that show in the notification panel.
-        notification.setLatestEventInfo(this, R.string.notify_title + "£º" + Integer.toString(l) + "%",
+        notification.setLatestEventInfo(this, this.getString(R.string.notify_title) + "£º" + Integer.toString(l) + "%",
                        null, contentIntent);
 
         // Send the notification.
@@ -139,7 +138,7 @@ public class BatteryWatcher extends Service {
         notification.flags = notification.FLAG_ONGOING_EVENT;
 //        notification.number = num++;
         mNM.notify(NOTIFY_ID, notification);
-        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
     }
 	
 	private int getNotiIcon(int l){
