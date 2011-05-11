@@ -13,11 +13,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.os.BatteryManager;
-import android.os.ConditionVariable;
 import android.os.IBinder;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 /**
@@ -36,6 +33,7 @@ public class BatteryWatcher extends Service {
 	private static final int NOTIFY_ID = 1;
 	private static BatteryWatcher sInstance;
 
+	private int lastLevel;
 
 	/**
 	 * 
@@ -54,7 +52,7 @@ public class BatteryWatcher extends Service {
 		if (sInstance != null) {
 			return;
 		}
-		Toast.makeText(this, "on create", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(this, "on create", Toast.LENGTH_SHORT).show();
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         sInstance = this;
 
@@ -119,6 +117,10 @@ public class BatteryWatcher extends Service {
         // it is distracting to show the ticker text every time it changes.  We strongly suggest
         // that you do this as well.  (Think of of the "New hardware found" or "Network connection
         // changed" messages that always pop up)
+		if (lastLevel == l) {
+			return;
+		}
+		lastLevel = l;
 		if (notification == null) {
 			notification = new Notification(getNotiIcon(l),this.getString(R.string.start_message),System.currentTimeMillis());
 		}
@@ -138,7 +140,7 @@ public class BatteryWatcher extends Service {
         notification.flags = notification.FLAG_ONGOING_EVENT;
 //        notification.number = num++;
         mNM.notify(NOTIFY_ID, notification);
-        Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
     }
 	
 	private int getNotiIcon(int l){
