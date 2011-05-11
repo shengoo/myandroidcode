@@ -2,4 +2,5 @@
 <resources>
 	<string name="start_on_boot">start_on_boot</string>
 	<string name="alrtm_interval">alrtm_interval</string>
+	<string name="auto_boot_checkbox">auto_boot_checkbox</string>
 </resources>

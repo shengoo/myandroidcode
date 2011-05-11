@@ -3,4 +3,10 @@
     <string name="app_name">电池指示</string>
     <string name="notify_title">剩余电量</string>
     <string name="start_message">电源指示已启动</string>
+    <string name="service_running">服务已启动</string>
+    <string name="service_not_exist">服务不存在</string>
+    <string name="start_onboot_title">随系统启动</string>
+    <string name="start_onboot_enable_summary">程序会随手机启动</string>
+    <string name="start_onboot_disable_summary">程序需要手动启动</string>
+    <string name="service_option_title">选项</string>
 </resources>
