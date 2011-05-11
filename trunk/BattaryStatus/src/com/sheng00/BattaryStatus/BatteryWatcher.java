@@ -190,109 +190,109 @@ public class BatteryWatcher extends Service {
 			result = R.drawable.r14;
 			break;
 		case 15:
-			result = R.drawable.o15;
+			result = R.drawable.r15;
 			break;
 		case 16:
-			result = R.drawable.o16;
+			result = R.drawable.r16;
 			break;
 		case 17:
-			result = R.drawable.o17;
+			result = R.drawable.r17;
 			break;
 		case 18:
-			result = R.drawable.o18;
+			result = R.drawable.r18;
 			break;
 		case 19:
-			result = R.drawable.o19;
+			result = R.drawable.r19;
 			break;
 		case 20:
-			result = R.drawable.o20;
+			result = R.drawable.a20;
 			break;
 		case 21:
-			result = R.drawable.o21;
+			result = R.drawable.a21;
 			break;
 		case 22:
-			result = R.drawable.o22;
+			result = R.drawable.a22;
 			break;
 		case 23:
-			result = R.drawable.o23;
+			result = R.drawable.a23;
 			break;
 		case 24:
-			result = R.drawable.o24;
+			result = R.drawable.a24;
 			break;
 		case 25:
-			result = R.drawable.o25;
+			result = R.drawable.a25;
 			break;
 		case 26:
-			result = R.drawable.o26;
+			result = R.drawable.a26;
 			break;
 		case 27:
-			result = R.drawable.o27;
+			result = R.drawable.a27;
 			break;
 		case 28:
-			result = R.drawable.o28;
+			result = R.drawable.a28;
 			break;
 		case 29:
-			result = R.drawable.o29;
+			result = R.drawable.a29;
 			break;
 		case 30:
-			result = R.drawable.b30;
+			result = R.drawable.a30;
 			break;
 		case 31:
-			result = R.drawable.b31;
+			result = R.drawable.a31;
 			break;
 		case 32:
-			result = R.drawable.b32;
+			result = R.drawable.a32;
 			break;
 		case 33:
-			result = R.drawable.b33;
+			result = R.drawable.a33;
 			break;
 		case 34:
-			result = R.drawable.b34;
+			result = R.drawable.a34;
 			break;
 		case 35:
-			result = R.drawable.b35;
+			result = R.drawable.a35;
 			break;
 		case 36:
-			result = R.drawable.b36;
+			result = R.drawable.a36;
 			break;
 		case 37:
-			result = R.drawable.b37;
+			result = R.drawable.a37;
 			break;
 		case 38:
-			result = R.drawable.b38;
+			result = R.drawable.a38;
 			break;
 		case 39:
-			result = R.drawable.b39;
+			result = R.drawable.a39;
 			break;
 		case 40:
-			result = R.drawable.b40;
+			result = R.drawable.g40;
 			break;
 		case 41:
-			result = R.drawable.b41;
+			result = R.drawable.g41;
 			break;
 		case 42:
-			result = R.drawable.b42;
+			result = R.drawable.g42;
 			break;
 		case 43:
-			result = R.drawable.b43;
+			result = R.drawable.g43;
 			break;
 		case 44:
-			result = R.drawable.b44;
+			result = R.drawable.g44;
 			break;
 		case 45:
-			result = R.drawable.b45;
+			result = R.drawable.g45;
 			break;
 		case 46:
-			result = R.drawable.b46;
+			result = R.drawable.g46;
 			break;
 		case 47:
-			result = R.drawable.b47;
+			result = R.drawable.g47;
 			break;
 		case 48:
-			result = R.drawable.b48;
+			result = R.drawable.g48;
 			break;
 		case 49:
-			result = R.drawable.b49;
+			result = R.drawable.g49;
 			break;
 		case 50:
 			result = R.drawable.g50;
