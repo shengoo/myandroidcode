@@ -37,9 +37,10 @@ public class BattaryStatus extends PreferenceActivity{
 //        startOnBootBox.setChecked(startOnBoot);
 
         addPreferencesFromResource(R.xml.preferences);
+        startBatteryService();
     }
     
-    private void startService() {
+    private void startBatteryService() {
     	s = startService(new Intent(BattaryStatus.this, 
                 BatteryWatcher.class));
         System.out.println(s == null);
