@@ -16,15 +16,6 @@ import android.widget.Toast;
  */
 public class StartAtBootServiceReceiver extends BroadcastReceiver  {
 	
-	private static boolean enabled;
-	
-	public static boolean isEnabled() {
-		return enabled;
-	}
-
-	public static void setEnabled(boolean enabled) {
-		StartAtBootServiceReceiver.enabled = enabled;
-	}
 
 	private SharedPreferences prefs;
 
@@ -34,7 +25,7 @@ public class StartAtBootServiceReceiver extends BroadcastReceiver  {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		boolean checked = prefs.getBoolean(context.getString(R.string.auto_boot_checkbox), true);
 		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-			if (enabled) {
+			if (checked) {
 				Intent i = new Intent();
 				i.setAction("com.sheng00.BattaryStatus.BatteryWatcher");
 				context.startService(i);
