@@ -24,6 +24,7 @@ public class StartAtBootServiceReceiver extends BroadcastReceiver  {
 	{
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		boolean checked = prefs.getBoolean(context.getString(R.string.auto_boot_checkbox), true);
+		Toast.makeText(context, "checked:" + checked, Toast.LENGTH_LONG).show();
 		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
 			if (checked) {
 				Intent i = new Intent();
