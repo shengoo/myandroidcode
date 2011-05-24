@@ -6,6 +6,7 @@ import android.os.Vibrator;
 
 public class main extends Activity {
     private Vibrator vibrator;
+    long[] patten;
 
 	/** Called when the activity is first created. */
     @Override
@@ -18,9 +19,14 @@ public class main extends Activity {
     
     @Override
     protected void onPause(){
+    	super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy () {
     	if (vibrator != null) {
 			vibrator.cancel();
 		}
-    	super.onPause();
+    	super.onDestroy();
     }
 }
