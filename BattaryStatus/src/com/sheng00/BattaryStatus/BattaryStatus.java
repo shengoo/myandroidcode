@@ -1,35 +1,20 @@
 package com.sheng00.BattaryStatus;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.util.Log;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.Toast;
 
 public class BattaryStatus extends PreferenceActivity {
 	/** Called when the activity is first created. */
 
 	BatteryManager bManager;
-	private ComponentName s;
 	private PrefsSetting setting;
-	private boolean startOnBoot;
-	private CheckBox startOnBootBox;
 	private CheckBoxPreference checkboxPreference;
-	private SharedPreferences prefs;
 	
 	private Preference controllSvcState;
 	private boolean serviceRunning;
@@ -37,13 +22,7 @@ public class BattaryStatus extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.main);
-		// setting = new PrefsSetting(this);
-		//
-		// startOnBoot = setting.getStartOnBoot();
-		// startOnBootBox = (CheckBox) findViewById(R.id.checkBox1);
-		// startOnBootBox.setChecked(startOnBoot);
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		setting = new PrefsSetting(this);
 		addPreferencesFromResource(R.xml.preferences);
 		checkboxPreference = (CheckBoxPreference) findPreference(getString(R.string.auto_boot_checkbox));
 		if (checkboxPreference.isChecked()) {
@@ -68,12 +47,14 @@ public class BattaryStatus extends PreferenceActivity {
 
 				});
 		controllSvcState = findPreference(getString(R.string.controll_service_key));
-		String svcRunning = prefs.getString(getString(R.string.svc_state), "not");
+		String svcRunning = setting.prefsGetString(getString(R.string.svc_state));
 		serviceRunning = svcRunning.equals("running");
 		if(serviceRunning){
-			controllSvcState.setTitle("service is running, touch to stop");
+			controllSvcState.setTitle("Service is running");
+			controllSvcState.setSummary("service is running, touch to stop");
 		}else {
-			controllSvcState.setTitle("service is not running, touch to start");
+			controllSvcState.setTitle("Service is not running");
+			controllSvcState.setSummary("service is not running, touch to start");
 		}
 		controllSvcState.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
@@ -84,21 +65,32 @@ public class BattaryStatus extends PreferenceActivity {
 				return true;
 			}
 		});
-//		startBatteryService();
 	}
 	
 	private void switchServiceState(){
 		if(!serviceRunning){
 			if (startBatteryService()) {
-				Toast.makeText(this, "service started", Toast.LENGTH_LONG).show();
+				showTxt("service started");
+				if (controllSvcState == null) {
+					controllSvcState = findPreference(getString(R.string.controll_service_key));
+				}
+				controllSvcState.setTitle("Service is running");
+				controllSvcState.setSummary("service is running, touch to stop");
+				serviceRunning = !serviceRunning;
 			}else {
-				Toast.makeText(this, "service cannot start", Toast.LENGTH_LONG).show();
+				showTxt("service cannot start");
 			}
 		}else {
 			if(stopBatteryService()){
-				Toast.makeText(this, "service stopped", Toast.LENGTH_LONG).show();
+				showTxt("service stopped");
+				if (controllSvcState == null) {
+					controllSvcState = findPreference(getString(R.string.controll_service_key));
+				}
+				controllSvcState.setTitle("Service is not running");
+				controllSvcState.setSummary("service is not running, touch to start");
+				serviceRunning = !serviceRunning;
 			}else {
-				Toast.makeText(this, "service cannot stop", Toast.LENGTH_LONG).show();
+				showTxt("service cannot stop");
 			}
 		}
 	}
@@ -113,6 +105,6 @@ public class BattaryStatus extends PreferenceActivity {
 	}
 
 	private void showTxt(String string) {
-		Toast.makeText(this, string, Toast.LENGTH_LONG).show();
+		Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
 	}
 }
