@@ -30,6 +30,9 @@ public class BattaryStatus extends PreferenceActivity {
 	private CheckBox startOnBootBox;
 	private CheckBoxPreference checkboxPreference;
 	private SharedPreferences prefs;
+	
+	private Preference controllSvcState;
+	private boolean serviceRunning;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class BattaryStatus extends PreferenceActivity {
 		// startOnBoot = setting.getStartOnBoot();
 		// startOnBootBox = (CheckBox) findViewById(R.id.checkBox1);
 		// startOnBootBox.setChecked(startOnBoot);
-		
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		addPreferencesFromResource(R.xml.preferences);
 		checkboxPreference = (CheckBoxPreference) findPreference(getString(R.string.auto_boot_checkbox));
 		if (checkboxPreference.isChecked()) {
@@ -64,12 +67,49 @@ public class BattaryStatus extends PreferenceActivity {
 					}
 
 				});
-		startBatteryService();
+		controllSvcState = findPreference(getString(R.string.controll_service_key));
+		String svcRunning = prefs.getString(getString(R.string.svc_state), "not");
+		serviceRunning = svcRunning.equals("running");
+		if(serviceRunning){
+			controllSvcState.setTitle("service is running, touch to stop");
+		}else {
+			controllSvcState.setTitle("service is not running, touch to start");
+		}
+		controllSvcState.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+				switchServiceState();
+				return true;
+			}
+		});
+//		startBatteryService();
+	}
+	
+	private void switchServiceState(){
+		if(!serviceRunning){
+			if (startBatteryService()) {
+				Toast.makeText(this, "service started", Toast.LENGTH_LONG).show();
+			}else {
+				Toast.makeText(this, "service cannot start", Toast.LENGTH_LONG).show();
+			}
+		}else {
+			if(stopBatteryService()){
+				Toast.makeText(this, "service stopped", Toast.LENGTH_LONG).show();
+			}else {
+				Toast.makeText(this, "service cannot stop", Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
-	private void startBatteryService() {
-		s = startService(new Intent(BattaryStatus.this, BatteryWatcher.class));
-		System.out.println(s == null);
+	private boolean startBatteryService() {
+		return startService(new Intent(BattaryStatus.this, BatteryWatcher.class))!=null;
+//		System.out.println(s == null);
+	}
+	
+	private boolean stopBatteryService() {
+		return stopService(new Intent(BattaryStatus.this, BatteryWatcher.class));
 	}
 
 	private void showTxt(String string) {

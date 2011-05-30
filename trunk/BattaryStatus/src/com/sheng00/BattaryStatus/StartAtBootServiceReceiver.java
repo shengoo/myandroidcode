@@ -28,7 +28,8 @@ public class StartAtBootServiceReceiver extends BroadcastReceiver  {
 		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
 			if (checked) {
 				Intent i = new Intent();
-				i.setAction("com.sheng00.BattaryStatus.BatteryWatcher");
+				i.setAction(BatteryWatcher.class.getName());
+//				i.setAction("com.sheng00.BattaryStatus.BatteryWatcher");
 				context.startService(i);
 			}
 		}
