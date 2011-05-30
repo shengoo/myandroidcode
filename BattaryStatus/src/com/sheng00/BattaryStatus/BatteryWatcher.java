@@ -143,6 +143,9 @@ public class BatteryWatcher extends Service {
 //	}
 	
 	private void showNotification(int l) {
+		if (debug) {
+			showTxt("battery level:" + l);
+		}
 		if (lastLevel == l) {
 			return;
 		}
@@ -163,7 +166,7 @@ public class BatteryWatcher extends Service {
 
         // Send the notification.
         // We use a layout id because it is a unique number.  We use it later to cancel.
-        notification.flags = notification.FLAG_ONGOING_EVENT;
+        notification.flags = Notification.FLAG_ONGOING_EVENT;
 //        notification.number = num++;
         mNM.notify(NOTIFY_ID, notification);
 //        Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
