@@ -6,6 +6,7 @@ package com.sheng00.BattaryStatus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 /**
  * @author Qing
@@ -19,6 +20,7 @@ public class PrefsSetting {
 	
 	public PrefsSetting(Context context) {
 		mContext = context;
+		sprefs = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 	
 	

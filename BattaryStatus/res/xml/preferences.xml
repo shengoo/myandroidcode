@@ -23,7 +23,8 @@
         <CheckBoxPreference
         		android:title="@string/start_onboot_title" 
                 android:key="@string/auto_boot_checkbox"/>
-            
+            <Preference 
+            android:title="" android:key="@string/controll_service_key"/>
     </PreferenceCategory>
     
 </PreferenceScreen>

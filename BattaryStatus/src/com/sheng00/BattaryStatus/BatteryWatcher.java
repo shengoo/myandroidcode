@@ -13,8 +13,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.IBinder;
+import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 /**
@@ -23,6 +26,8 @@ import android.widget.Toast;
  * 
  */
 public class BatteryWatcher extends Service {
+	
+	private boolean debug = true;
 
 	private NotificationManager mNM;
 	private int level;
@@ -32,9 +37,38 @@ public class BatteryWatcher extends Service {
 	
 	private static final int NOTIFY_ID = 1;
 	private static BatteryWatcher sInstance;
+	private PrefsSetting prefs;
 
 	private int lastLevel;
-
+	private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+        int voltage = -1;
+        int temp = -1;
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+            voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+            int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+            System.out.println("level:" + level +"scale:" + scale);
+            showNotification(level * 100 / scale);
+        }
+    };;
+	
+	private final IBatteryService.Stub mBinder = new IBatteryService.Stub() {
+		
+		@Override
+		public void stopService() throws RemoteException {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean isServiceRunning() throws RemoteException {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
 	/**
 	 * 
 	 */
@@ -43,37 +77,46 @@ public class BatteryWatcher extends Service {
 //		Toast.makeText(this, "BatteryWatcher", Toast.LENGTH_LONG).show();
 	}
 	
-	public static BatteryWatcher getInstance() {
-		return sInstance;
-	}
 	
 	@Override
     public void onCreate() {
 		if (sInstance != null) {
 			return;
 		}
-//		Toast.makeText(this, "on create", Toast.LENGTH_SHORT).show();
+		if (debug) {
+			Toast.makeText(this, "on create", Toast.LENGTH_SHORT).show();
+		}
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         sInstance = this;
 
         
-        BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
-            int voltage = -1;
-            int temp = -1;
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
-                voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
-                int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-                System.out.println("level:" + level +"scale:" + scale);
-                showNotification(level * 100 / scale);
-            }
-        };
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(batteryReceiver, filter);
+        
+        
     }
+	
+	@Override
+	public void onStart(Intent intent, int startId){
+		if(prefs == null)
+			prefs = new PrefsSetting(this);
+        prefs.prefsSetString(getString(R.string.svc_state), "running");
+        if (debug) {
+        	Toast.makeText(this, "on start", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	@Override
+    public void onDestroy() {
+		unregisterReceiver(batteryReceiver);
+        prefs.prefsSetString(getString(R.string.svc_state), "not");
+        if (debug) {
+        	Toast.makeText(this, "on destroy", Toast.LENGTH_SHORT).show();
+		}
+        mNM.cancel(NOTIFY_ID);
+        lastLevel = 0;
+	}
+
 	
 //	private void showTxt(String string){
 //    	Toast.makeText(this, string, Toast.LENGTH_LONG).show();

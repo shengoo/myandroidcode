@@ -3,4 +3,6 @@
 	<string name="start_on_boot">start_on_boot</string>
 	<string name="alrtm_interval">alrtm_interval</string>
 	<string name="auto_boot_checkbox">auto_boot_checkbox</string>
+	<string name="controll_service_key">controll_service</string>
+	<string name="svc_state">service_running_state</string>
 </resources>
