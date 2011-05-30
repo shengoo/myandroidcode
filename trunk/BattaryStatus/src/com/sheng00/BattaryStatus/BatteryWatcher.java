@@ -13,11 +13,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 /**
@@ -36,7 +34,6 @@ public class BatteryWatcher extends Service {
 	private PendingIntent contentIntent;
 	
 	private static final int NOTIFY_ID = 1;
-	private static BatteryWatcher sInstance;
 	private PrefsSetting prefs;
 
 	private int lastLevel;
@@ -69,58 +66,52 @@ public class BatteryWatcher extends Service {
 			return false;
 		}
 	};
-	/**
-	 * 
-	 */
-	public BatteryWatcher() {
-		// TODO Auto-generated constructor stub
-//		Toast.makeText(this, "BatteryWatcher", Toast.LENGTH_LONG).show();
-	}
 	
 	
 	@Override
     public void onCreate() {
-		if (sInstance != null) {
-			return;
-		}
 		if (debug) {
-			Toast.makeText(this, "on create", Toast.LENGTH_SHORT).show();
+			showTxt("on create");
 		}
-        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        sInstance = this;
-
-        
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(batteryReceiver, filter);
         
         
     }
 	
 	@Override
 	public void onStart(Intent intent, int startId){
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryReceiver, filter);
+        
+        
 		if(prefs == null)
 			prefs = new PrefsSetting(this);
         prefs.prefsSetString(getString(R.string.svc_state), "running");
         if (debug) {
-        	Toast.makeText(this, "on start", Toast.LENGTH_SHORT).show();
+        	showTxt("on start");
 		}
 	}
 	
 	@Override
     public void onDestroy() {
+//		if (batteryReceiver.) {
+//			
+//		}
 		unregisterReceiver(batteryReceiver);
         prefs.prefsSetString(getString(R.string.svc_state), "not");
         if (debug) {
-        	Toast.makeText(this, "on destroy", Toast.LENGTH_SHORT).show();
+        	showTxt("on destroy");
 		}
         mNM.cancel(NOTIFY_ID);
         lastLevel = 0;
 	}
 
 	
-//	private void showTxt(String string){
-//    	Toast.makeText(this, string, Toast.LENGTH_LONG).show();
-//    }
+	private void showTxt(String string){
+    	Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    }
 	
 //	private void showNotification2(){
 //		// Instead of the normal constructor, we're going to use the one with no args and fill
@@ -152,14 +143,6 @@ public class BatteryWatcher extends Service {
 //	}
 	
 	private void showNotification(int l) {
-        // In this sample, we'll use the same text for the ticker and the expanded notification
-//        CharSequence text = getText(textId);
-
-        // Set the icon, scrolling text and timestamp.
-        // Note that in this example, we pass null for tickerText.  We update the icon enough that
-        // it is distracting to show the ticker text every time it changes.  We strongly suggest
-        // that you do this as well.  (Think of of the "New hardware found" or "Network connection
-        // changed" messages that always pop up)
 		if (lastLevel == l) {
 			return;
 		}
