@@ -2,6 +2,19 @@ package com.sheng00.epublib.Controllers;
 
 import java.util.Random;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.Display;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation.AnimationListener;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import android.widget.RelativeLayout.LayoutParams;
+
+import com.guohead.sdk.GuoheAdLayout;
+import com.guohead.sdk.GuoheAdManager;
+import com.guohead.sdk.GuoheAdStateListener;
 import com.sheng00.epubdemo.main;
 import com.sheng00.epublib.R;
 import com.sheng00.epublib.Config.GlobalConfig;
@@ -11,30 +24,14 @@ import com.sheng00.epublib.Models.Book;
 import com.sheng00.epublib.Views.ChapterView;
 import com.sheng00.epublib.Views.ContentView;
 
-import net.youmi.android.AdManager;
-import net.youmi.android.AdView;
-import android.app.Activity;
-import android.content.Context;
-import android.view.Display;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.view.animation.Animation.AnimationListener;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-import android.widget.RelativeLayout.LayoutParams;
-
 
 
 public class BookViewController {
-	static{   
-		 //第一个参数为您的应用发布Id
-		 //第二个参数为您的应用密码
-		 //第三个参数是请求广告的间隔，有效的设置值为30至200，单位为秒
-		 //第四个参数是设置测试模式，设置为true时，可以获取测试广告，正式发布请设置此参数为false
-		 //第五个参数是供开发者设置的应用版本标识，开发者设置此参数后，可以通过有米广告网站的开发者管理页面看到应用的统计情况。
-		 AdManager.init("8f2b780171bf1d4b", "5914f54783cba327", 30, true,"1.0"); 
-		}
+	
+	
+
+	
+	
 	private Context mContext;
 	private RelativeLayout layout;
 	private int currentPageNo;
@@ -49,7 +46,7 @@ public class BookViewController {
 	private int genID = new Random().nextInt(10000);
 	private TranslateAnimation chapterLeftOut;
 	private TranslateAnimation chapterLeftIn;
-	private AdView adView;
+//	private AdView adView;
 
 
 	public BookViewController(Context context,Book boo) {
@@ -72,23 +69,47 @@ public class BookViewController {
         controllBarClickListener = new ControllBarClickListener(mContext, this);
         content.setControllButtonsClickListener(controllBarClickListener);
         
-        adView = new AdView(mContext);
+        
+        /**
+         * ad
+         */
+        GuoheAdManager.init(mContext.getString(R.string.adkey));
+		GuoheAdLayout adLayout = new GuoheAdLayout((Activity) mContext);
+        adLayout.setListener(new GuoheAdStateListener() {
+	        @Override
+	        public void onFail() {
+	        }
+	        @Override
+	        public void onClick() {
+	        //adLayout.setVisibility(View.GONE);
+	        }
+	        @Override
+	        public void onReceiveAd(){
+	        }
+	        @Override
+	        public void onRefreshAd(){
+	        }
+        });
+        
+//        adView = new AdView(mContext);
         LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-        adView.setId(genID);
-        adView.setVisibility(View.INVISIBLE);//show ad after 60 seconds
-        adView.postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				adView.setVisibility(View.VISIBLE);
-			}
-		}, 1000*60);
+//        adView.setId(genID);
+//        adView.setVisibility(View.INVISIBLE);//show ad after 60 seconds
+//        adView.postDelayed(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				adView.setVisibility(View.VISIBLE);
+//			}
+//		}, 1000*60);
+        
+        adLayout.setId(genID);
         
         LayoutParams mainParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-        mainParams.addRule(RelativeLayout.BELOW,adView.getId());
+        mainParams.addRule(RelativeLayout.BELOW,adLayout.getId());
         
-        layout.addView(adView,params);
+        layout.addView(adLayout,params);
         layout.addView(content,mainParams);
         layout.addView(chapter,mainParams);
         

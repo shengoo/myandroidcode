@@ -2,6 +2,7 @@
 <resources>
     <string name="hello">Hello World!</string>
     <string name="app_name">main</string>
+    <string name="adkey"></string>
     <string name="pre_button_text">previous</string>
     <string name="next_button_text">next</string>
     <string name="chapter_button_text">chapters</string>
