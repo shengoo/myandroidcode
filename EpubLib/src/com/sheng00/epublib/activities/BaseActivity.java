@@ -5,19 +5,6 @@ package com.sheng00.epublib.activities;
 
 import java.util.zip.ZipInputStream;
 
-import com.guohead.sdk.GuoheAdManager;
-import com.sheng00.epublib.R;
-import com.sheng00.epublib.Controllers.BookViewController;
-import com.sheng00.epublib.Managers.PrefsManager;
-import com.sheng00.epublib.Managers.XmlManager;
-import com.sheng00.epublib.Managers.ZipManager;
-import com.sheng00.epublib.Models.Book;
-import com.sheng00.epublib.R.drawable;
-import com.sheng00.epublib.R.id;
-import com.sheng00.epublib.R.menu;
-import com.sheng00.epublib.R.raw;
-import com.sheng00.epublib.R.string;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -32,6 +19,14 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.guohead.sdk.GuoheAdManager;
+import com.sheng00.epublib.R;
+import com.sheng00.epublib.Controllers.BookViewController;
+import com.sheng00.epublib.Managers.PrefsManager;
+import com.sheng00.epublib.Managers.XmlManager;
+import com.sheng00.epublib.Managers.ZipManager;
+import com.sheng00.epublib.Models.Book;
 
 /**
  * @author ShengQing on 2011-7-4
