@@ -3,8 +3,6 @@
  */
 package com.sheng00.BattaryStatus;
 
-
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,124 +22,102 @@ import android.widget.Toast;
  * 
  */
 public class BatteryWatcher extends Service {
-	
-	private boolean debug = false;
+
+	private boolean debug = true;
 
 	private NotificationManager mNM;
 	private int level;
 	private int scale;
 	private Notification notification;
 	private PendingIntent contentIntent;
-	
+
 	private static final int NOTIFY_ID = 1;
 	private PrefsSetting prefs;
 
 	private int lastLevel;
 	private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
-        int voltage = -1;
-        int temp = -1;
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-            temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
-            voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
-            int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-            System.out.println("level:" + level +"scale:" + scale);
-            showNotification(level * 100 / scale);
-        }
-    };;
-	
-	private final IBatteryService.Stub mBinder = new IBatteryService.Stub() {
-		
-		@Override
-		public void stopService() throws RemoteException {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public boolean isServiceRunning() throws RemoteException {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	};
-	
-	
-	@Override
-    public void onCreate() {
-		if (debug) {
-			showTxt("on create");
-		}
-        
-        
-    }
-	
-	@Override
-	public void onStart(Intent intent, int startId){
-        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		int voltage = -1;
+		int temp = -1;
 
-        
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(batteryReceiver, filter);
-        
-        
-		if(prefs == null)
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+			voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+			System.out.println("level:" + level + "scale:" + scale);
+			showNotification(level * 100 / scale);
+		}
+	};;
+
+
+	@Override
+	public void onCreate() {
+		showTxt("on create");
+	}
+
+	@Override
+	public void onStart(Intent intent, int startId) {
+		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+		IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+		registerReceiver(batteryReceiver, filter);
+
+		if (prefs == null)
 			prefs = new PrefsSetting(this);
-        prefs.prefsSetString(getString(R.string.svc_state), "running");
-        if (debug) {
-        	showTxt("on start");
-		}
-	}
-	
-	@Override
-    public void onDestroy() {
-//		if (batteryReceiver.) {
-//			
-//		}
-		unregisterReceiver(batteryReceiver);
-        prefs.prefsSetString(getString(R.string.svc_state), "not");
-        if (debug) {
-        	showTxt("on destroy");
-		}
-        mNM.cancel(NOTIFY_ID);
-        lastLevel = 0;
+		showTxt("on start");
 	}
 
-	
-	private void showTxt(String string){
-    	Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
-    }
-	
-//	private void showNotification2(){
-//		// Instead of the normal constructor, we're going to use the one with no args and fill
-//        // in all of the data ourselves.  The normal one uses the default layout for notifications.
-//        // You probably want that in most cases, but if you want to do something custom, you
-//        // can set the contentView field to your own RemoteViews object.
-//        notification = new Notification();
-//        contentIntent = PendingIntent.getActivity(this, 0,
-//                new Intent(this, BattaryStatus.class), 0);
-//
-//        // This is who should be launched if the user selects our notification.
-//        notification.contentIntent = contentIntent;
-//
-//        // In this sample, we'll use the same text for the ticker and the expanded notification
-//        CharSequence text = "222";
-//        notification.tickerText = text;
-//
-//        // the icon for the status bar
-//        notification.icon = R.drawable.icon;
-//        
-//        RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.status_bar_balloon);
-//        contentView.setTextViewText(R.id.text, text);
-//        contentView.setImageViewResource(R.id.icon, R.id.icon);
-//        notification.contentView = contentView;
-//        notification.flags = notification.FLAG_ONGOING_EVENT;
-////        notification.number = num++;
-////        notification.defaults= defaults;
-//        mNM.notify(NOTIFY_ID, notification);
-//	}
-	
+	@Override
+	public void onDestroy() {
+		unregisterReceiver(batteryReceiver);
+		showTxt("on destroy");
+		mNM.cancel(NOTIFY_ID);
+		lastLevel = 0;
+	}
+
+	private void showTxt(String string) {
+		if (!debug) {
+			return;
+		}
+		Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+	}
+
+	// private void showNotification2(){
+	// // Instead of the normal constructor, we're going to use the one with no
+	// args and fill
+	// // in all of the data ourselves. The normal one uses the default layout
+	// for notifications.
+	// // You probably want that in most cases, but if you want to do something
+	// custom, you
+	// // can set the contentView field to your own RemoteViews object.
+	// notification = new Notification();
+	// contentIntent = PendingIntent.getActivity(this, 0,
+	// new Intent(this, BattaryStatus.class), 0);
+	//
+	// // This is who should be launched if the user selects our notification.
+	// notification.contentIntent = contentIntent;
+	//
+	// // In this sample, we'll use the same text for the ticker and the
+	// expanded notification
+	// CharSequence text = "222";
+	// notification.tickerText = text;
+	//
+	// // the icon for the status bar
+	// notification.icon = R.drawable.icon;
+	//
+	// RemoteViews contentView = new RemoteViews(getPackageName(),
+	// R.layout.status_bar_balloon);
+	// contentView.setTextViewText(R.id.text, text);
+	// contentView.setImageViewResource(R.id.icon, R.id.icon);
+	// notification.contentView = contentView;
+	// notification.flags = notification.FLAG_ONGOING_EVENT;
+	// // notification.number = num++;
+	// // notification.defaults= defaults;
+	// mNM.notify(NOTIFY_ID, notification);
+	// }
+
 	private void showNotification(int l) {
 		if (debug) {
 			showTxt("battery level:" + l);
@@ -151,28 +127,34 @@ public class BatteryWatcher extends Service {
 		}
 		lastLevel = l;
 		if (notification == null) {
-			notification = new Notification(getNotiIcon(l),this.getString(R.string.start_message),System.currentTimeMillis());
+			notification = new Notification(getNotiIcon(l),
+					this.getString(R.string.start_message),
+					System.currentTimeMillis());
 		}
-			notification.icon = getNotiIcon(l);
-			notification.when = System.currentTimeMillis();
+		notification.icon = getNotiIcon(l);
+		notification.when = System.currentTimeMillis();
 
-        // The PendingIntent to launch our activity if the user selects this notification
-        contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, BattaryStatus.class), 0);
+		// The PendingIntent to launch our activity if the user selects this
+		// notification
+		contentIntent = PendingIntent.getActivity(this, 0, new Intent(this,
+				BattaryStatus.class), 0);
 
-        // Set the info for the views that show in the notification panel.
-        notification.setLatestEventInfo(this, this.getString(R.string.notify_title) + "£º" + Integer.toString(l) + "%",
-                       null, contentIntent);
+		// Set the info for the views that show in the notification panel.
+		notification.setLatestEventInfo(
+				this,
+				this.getString(R.string.notify_title) + "£º"
+						+ Integer.toString(l) + "%", null, contentIntent);
 
-        // Send the notification.
-        // We use a layout id because it is a unique number.  We use it later to cancel.
-        notification.flags = Notification.FLAG_ONGOING_EVENT;
-//        notification.number = num++;
-        mNM.notify(NOTIFY_ID, notification);
-//        Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
-    }
-	
-	private int getNotiIcon(int l){
+		// Send the notification.
+		// We use a layout id because it is a unique number. We use it later to
+		// cancel.
+		notification.flags = Notification.FLAG_ONGOING_EVENT;
+		// notification.number = num++;
+		mNM.notify(NOTIFY_ID, notification);
+		// Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
+	}
+
+	private int getNotiIcon(int l) {
 		int result = 0;
 		switch (l) {
 		case 0:
@@ -485,11 +467,14 @@ public class BatteryWatcher extends Service {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Service#onBind(android.content.Intent)
 	 */
 	@Override
-	public IBinder onBind(Intent intent) {Toast.makeText(this, "service binded", Toast.LENGTH_LONG).show();
+	public IBinder onBind(Intent intent) {
+		Toast.makeText(this, "service binded", Toast.LENGTH_LONG).show();
 		// TODO Auto-generated method stub
 		return null;
 	}

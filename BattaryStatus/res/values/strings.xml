@@ -4,7 +4,10 @@
     <string name="notify_title">Battery left</string>
     <string name="start_message">Battery Status started.</string>
     <string name="service_running">Service is running.</string>
+    <string name="service_not_running">Service is not running.</string>
     <string name="service_not_exist">Service does not exist.</string>
+    <string name="touch_stop_service">Service is running, touch to stop</string>
+    <string name="touch_start_service">Service is not running, touch to start</string>
     <string name="start_onboot_title">Start service at boot</string>
     <string name="start_onboot_enable_summary">The service will start when your phone is turned on</string>
     <string name="start_onboot_disable_summary">You need to start the service manually</string>

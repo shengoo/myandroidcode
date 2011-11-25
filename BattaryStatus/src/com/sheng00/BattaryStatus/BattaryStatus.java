@@ -1,5 +1,7 @@
 package com.sheng00.BattaryStatus;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ public class BattaryStatus extends PreferenceActivity {
 	
 	private Preference controllSvcState;
 	private boolean serviceRunning;
+	private boolean debug = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,17 +51,17 @@ public class BattaryStatus extends PreferenceActivity {
 				});
 		controllSvcState = findPreference(getString(R.string.controll_service_key));
 		String svcRunning = setting.prefsGetString(getString(R.string.svc_state));
-		serviceRunning = svcRunning.equals("running");
+//		serviceRunning = svcRunning.equals("running");
+		serviceRunning = isMyServiceRunning();
 		if(serviceRunning){
-			controllSvcState.setTitle("Service is running");
-			controllSvcState.setSummary("service is running, touch to stop");
+			controllSvcState.setTitle(R.string.service_running);
+			controllSvcState.setSummary(R.string.touch_stop_service);
 		}else {
-			controllSvcState.setTitle("Service is not running");
-			controllSvcState.setSummary("service is not running, touch to start");
+			controllSvcState.setTitle(R.string.service_not_running);
+			controllSvcState.setSummary(R.string.touch_start_service);
 		}
 		controllSvcState.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
-			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				// TODO Auto-generated method stub
 				switchServiceState();
@@ -67,6 +70,18 @@ public class BattaryStatus extends PreferenceActivity {
 		});
 	}
 	
+	private boolean isMyServiceRunning() {
+	    ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	    	System.out.println(service.service.getClassName());
+	        if ("com.sheng00.BattaryStatus.BatteryWatcher".equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
+	
 	private void switchServiceState(){
 		if(!serviceRunning){
 			if (startBatteryService()) {
@@ -74,8 +89,8 @@ public class BattaryStatus extends PreferenceActivity {
 				if (controllSvcState == null) {
 					controllSvcState = findPreference(getString(R.string.controll_service_key));
 				}
-				controllSvcState.setTitle("Service is running");
-				controllSvcState.setSummary("service is running, touch to stop");
+				controllSvcState.setTitle(R.string.service_running);
+				controllSvcState.setSummary(R.string.touch_stop_service);
 				serviceRunning = !serviceRunning;
 			}else {
 				showTxt("service cannot start");
@@ -86,8 +101,8 @@ public class BattaryStatus extends PreferenceActivity {
 				if (controllSvcState == null) {
 					controllSvcState = findPreference(getString(R.string.controll_service_key));
 				}
-				controllSvcState.setTitle("Service is not running");
-				controllSvcState.setSummary("service is not running, touch to start");
+				controllSvcState.setTitle(R.string.service_not_running);
+				controllSvcState.setSummary(R.string.touch_start_service);
 				serviceRunning = !serviceRunning;
 			}else {
 				showTxt("service cannot stop");
@@ -105,6 +120,8 @@ public class BattaryStatus extends PreferenceActivity {
 	}
 
 	private void showTxt(String string) {
+		if(!debug)
+			return;
 		Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
 	}
 }
