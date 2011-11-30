@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World!</string>
-    <string name="app_name">main</string>
+    <string name="app_name"></string>
     <string name="adkey"></string>
     <string name="pre_button_text">previous</string>
     <string name="next_button_text">next</string>
