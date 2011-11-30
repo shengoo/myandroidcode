@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/adchina_android_sdk.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/adlib_android.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/adOn-2.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/adtouch-embed-sdk-1.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/adwosdk2.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/casee-ad-sdk-2.5.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/domob_android_sdk.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/GoogleAdMobAdsSdk-4.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/guohead-sdk.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/MMAdView.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/smartmad-sdk-android.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/WiAd.jar"/>
+	<classpathentry kind="lib" path="D:/Development/sdk/GuoheAd_Android_SDK_v1.6.2/libs/youmibannerad-android.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
