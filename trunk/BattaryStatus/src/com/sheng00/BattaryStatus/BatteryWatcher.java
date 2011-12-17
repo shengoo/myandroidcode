@@ -23,7 +23,7 @@ import android.widget.Toast;
  */
 public class BatteryWatcher extends Service {
 
-	private boolean debug = true;
+	private boolean debug = false;
 
 	private NotificationManager mNM;
 	private int level;

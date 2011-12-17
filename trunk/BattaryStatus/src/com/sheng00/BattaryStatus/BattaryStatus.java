@@ -20,7 +20,7 @@ public class BattaryStatus extends PreferenceActivity {
 	
 	private Preference controllSvcState;
 	private boolean serviceRunning;
-	private boolean debug = true;
+	private boolean debug = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
