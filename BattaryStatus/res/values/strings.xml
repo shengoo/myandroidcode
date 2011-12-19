@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BattaryStatus</string>
+    <string name="app_name">BatteryStatus</string>
     <string name="notify_title">Battery left</string>
     <string name="start_message">Battery Status started.</string>
     <string name="service_running">Service is running.</string>
@@ -9,7 +9,13 @@
     <string name="touch_stop_service">Service is running, touch to stop</string>
     <string name="touch_start_service">Service is not running, touch to start</string>
     <string name="start_onboot_title">Start service at boot</string>
-    <string name="start_onboot_enable_summary">The service will start when your phone is turned on</string>
-    <string name="start_onboot_disable_summary">You need to start the service manually</string>
+    <string name="start_onboot_summary_on">The service will start when your phone is turned on</string>
+    <string name="start_onboot_summary_off">You need to start the service manually</string>
     <string name="service_option_title">Service options</string>
+    <string name="alerts">Alerts</string>
+    <string name="full_alert">Full alert</string>
+    <string name="full_alert_text">Battery full!</string>
+    <string name="low_alert">Low battery alert</string>
+    <string name="low_alert_text">Battery low!</string>
+    <string name="alert_ringtone_title">Alert ringtone</string>
 </resources>

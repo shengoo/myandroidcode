@@ -5,4 +5,7 @@
 	<string name="auto_boot_checkbox">auto_boot_checkbox</string>
 	<string name="controll_service_key">controll_service</string>
 	<string name="svc_state">service_running_state</string>
+	<string name="full_alert_checkbox">full_alert_checkbox</string>
+	<string name="low_alert_checkbox">low_alert_checkbox</string>
+	<string name="alert_ringtone_uri">alert_ringtone_uri</string>
 </resources>
