@@ -8,4 +8,5 @@
 	<string name="full_alert_checkbox">full_alert_checkbox</string>
 	<string name="low_alert_checkbox">low_alert_checkbox</string>
 	<string name="alert_ringtone_uri">alert_ringtone_uri</string>
+	<string name="low_alert_level_key">low_alert_level_key</string>
 </resources>

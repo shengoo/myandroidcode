@@ -28,7 +28,7 @@ import android.widget.Toast;
  */
 public class BatteryWatcher extends Service {
 
-	private boolean debug = true;
+	private boolean debug = false;
 
 	private NotificationManager mNM;
 	private int level;
@@ -41,6 +41,9 @@ public class BatteryWatcher extends Service {
 	private SharedPreferences sPreferences;
 
 	private int lastLevel;
+
+	boolean charging = false;
+
 	private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 		int voltage = -1;
 		int temp = -1;
@@ -52,15 +55,16 @@ public class BatteryWatcher extends Service {
 			temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
 			voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
 			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-			System.out.println("level:" + level + "scale:" + scale);
+			charging = plugged != 0;
+			System.out.println("level:" + level + "scale:" + scale
+					+ "charging:" + charging);
 			showNotification(level * 100 / scale);
 		}
 	};;
 
-
 	@Override
 	public void onCreate() {
-		//showTxt("on create");
+		// showTxt("on create");
 	}
 
 	@Override
@@ -72,15 +76,15 @@ public class BatteryWatcher extends Service {
 
 		if (prefs == null)
 			prefs = new PrefsSetting(this);
-		if(sPreferences==null)
+		if (sPreferences == null)
 			sPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		//showTxt("on start");
+		// showTxt("on start");
 	}
 
 	@Override
 	public void onDestroy() {
 		unregisterReceiver(batteryReceiver);
-		showTxt("on destroy");
+		// showTxt("on destroy");
 		mNM.cancel(NOTIFY_ID);
 		lastLevel = 0;
 	}
@@ -127,70 +131,63 @@ public class BatteryWatcher extends Service {
 	// }
 
 	private void showNotification(int l) {
-		if (debug) {
-			showTxt("battery level:" + l);
-		}
 		if (lastLevel == l) {
 			return;
 		}
+		//showTxt("battery level:" + l);
 		lastLevel = l;
 		if (notification == null) {
 			notification = new Notification(getNotiIcon(l),
 					this.getString(R.string.start_message),
 					System.currentTimeMillis());
 		}
-		//notification.icon = getNotiIcon(l);
-		//notification.when = System.currentTimeMillis();
-
-		// The PendingIntent to launch our activity if the user selects this
-		// notification
+		notification.icon = getNotiIcon(l);
+		notification.when = System.currentTimeMillis();
 		contentIntent = PendingIntent.getActivity(this, 0, new Intent(this,
 				BatteryStatus.class), 0);
-
-		// Set the info for the views that show in the notification panel.
 		notification.setLatestEventInfo(
 				this,
 				this.getString(R.string.notify_title) + "£º"
 						+ Integer.toString(l) + "%", null, contentIntent);
-		
-		// Send the notification.
-		// We use a layout id because it is a unique number. We use it later to
-		// cancel.
 		notification.flags = Notification.FLAG_ONGOING_EVENT;
-		//notification.defaults |= Notification.DEFAULT_SOUND;
-		//notification.defaults |= Notification.DEFAULT_VIBRATE;
-		//notification.defaults |= Notification.DEFAULT_ALL;
-		//notification.number = 3;
-		//notification.defaults |= Notification.DEFAULT_SOUND;
-		//String uriString = sPreferences.getString(this.getString(R.string.alert_ringtone_uri),"");
-		//notification.sound = Uri.parse(uriString);
-		//Toast.makeText(this, prefs.prefsGetString(this.getString(R.string.alert_ringtone_uri)), Toast.LENGTH_LONG).show();
 		mNM.notify(NOTIFY_ID, notification);
-		//if(l==100)
+		if (l == 100)
 			showFullBatteryAlert();
+		if (l == sPreferences
+				.getInt(getString(R.string.low_alert_level_key), 0))
+			showLowBatteryAlert();
 		// Toast.makeText(this, "showNotification", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	private void showFullBatteryAlert() {
-		if(sPreferences.getBoolean(this.getString(R.string.full_alert_checkbox),false)){
-			Notification fullNotification = new Notification(R.drawable.batteryfull, getString(R.string.full_alert_text), System.currentTimeMillis());
-			//fullNotification.defaults |= Notification.DEFAULT_ALL;
-			fullNotification.setLatestEventInfo(
-					this,
+		if (sPreferences.getBoolean(
+				this.getString(R.string.full_alert_checkbox), false)) {
+			Notification fullNotification = new Notification(
+					R.drawable.batteryfull,
+					getString(R.string.full_alert_text),
+					System.currentTimeMillis());
+			fullNotification.defaults |= Notification.DEFAULT_ALL;
+			fullNotification.setLatestEventInfo(this,
 					getString(R.string.full_alert_text), null, contentIntent);
-			fullNotification.ledARGB = 0xff00ff00;
-			fullNotification.ledOnMS = 300;
-			fullNotification.ledOffMS = 1000;
-			fullNotification.flags |= Notification.FLAG_SHOW_LIGHTS;
-			mNM.notify((int)(Math.random()*10000), fullNotification);
+			mNM.notify(2, fullNotification);
 		}
-			
+
 	}
-	
+
 	private void showLowBatteryAlert() {
-		
+		if (charging)
+			return;
+		if (sPreferences.getBoolean(
+				this.getString(R.string.low_alert_checkbox), false)) {
+			Notification lowNotification = new Notification(
+					R.drawable.batterylow, getString(R.string.low_alert_text),
+					System.currentTimeMillis());
+			lowNotification.defaults |= Notification.DEFAULT_ALL;
+			lowNotification.setLatestEventInfo(this,
+					getString(R.string.low_alert_text), null, contentIntent);
+			mNM.notify(3, lowNotification);
+		}
 	}
-	
 
 	private int getNotiIcon(int l) {
 		int result = 0;

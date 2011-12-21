@@ -9,7 +9,8 @@
 
 <!-- This is a primitive example showing the different types of preferences 
 	available. -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sheng00="http://sheng00.com">
 
 	<PreferenceCategory android:title="@string/service_option_title">
 
@@ -32,9 +33,20 @@
 			android:defaultValue="true"/>
 		<CheckBoxPreference 
 			android:title="@string/low_alert"
-			android:key="@string/full_alert_checkbox" 
+			android:key="@string/low_alert_checkbox" 
 			android:defaultValue="true"/>
-		
+
+		<com.sheng00.BatteryStatus.SeekBarPreference
+		    android:defaultValue="15"
+		    android:key="@string/low_alert_level_key"
+		    android:max="50"
+		    sheng00:min="1"
+		    android:title="@string/low_alert_level"
+		    android:summary=" "
+		    android:dependency="@string/low_alert_checkbox"
+		    sheng00:unitsLeft=""
+		    sheng00:unitsRight="%" />
+
 	</PreferenceCategory>
 
 </PreferenceScreen>

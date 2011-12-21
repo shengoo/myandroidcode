@@ -13,9 +13,10 @@
     <string name="start_onboot_summary_off">程序需要手动启动</string>
     <string name="service_option_title">选项</string>
     <string name="alerts">提醒</string>
-    <string name="full_alert">充满电视</string>
+    <string name="full_alert">充满电时</string>
     <string name="full_alert_text">电池已充满!</string>
     <string name="low_alert">电量低时</string>
     <string name="low_alert_text">电量低!</string>
+    <string name="low_alert_level">警戒值</string>
     <string name="alert_ringtone_title">提示铃声</string>
 </resources>

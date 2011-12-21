@@ -17,5 +17,6 @@
     <string name="full_alert_text">Battery full!</string>
     <string name="low_alert">Low battery alert</string>
     <string name="low_alert_text">Battery low!</string>
+    <string name="low_alert_level">Low level</string>
     <string name="alert_ringtone_title">Alert ringtone</string>
 </resources>
