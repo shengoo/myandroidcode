@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.sheng00.BattaryStatus"
-      android:versionCode="7"
-      android:versionName="2.0.3">
+      android:versionCode="8"
+      android:versionName="2.0.4">
     <uses-sdk android:minSdkVersion="7" />
     
     <uses-permission android:name="android.permission.DEVICE_POWER"></uses-permission>
@@ -26,7 +26,7 @@
         </activity>
         <service android:name="com.sheng00.BatteryStatus.BatteryWatcher"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.sheng00.BattaryStatus.BatteryWatcher"/>
+                <action android:name="com.sheng00.BatteryStatus.BatteryWatcher"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
