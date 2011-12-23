@@ -139,8 +139,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
             mStatusText.setMinimumWidth(30);
             
             mSeekBar.setProgress(mCurrentValue - mMinValue);
-            if(!this.isEnabled())
-            	mSeekBar.setEnabled(false);
+			mSeekBar.setEnabled(this.isEnabled());
 
             TextView unitsRight = (TextView)layout.findViewById(R.id.seekBarPrefUnitsRight);
             unitsRight.setText(mUnitsRight);
