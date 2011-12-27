@@ -5,8 +5,8 @@
       android:versionName="2.0.4">
     <uses-sdk android:minSdkVersion="7" />
     
-    <uses-permission android:name="android.permission.DEVICE_POWER"></uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 	<uses-permission android:name="android.permission.VIBRATE"/>
 
 	<supports-screens android:resizeable="true"
@@ -24,18 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.sheng00.BatteryStatus.BatteryWatcher"><intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <service android:name="com.sheng00.BatteryStatus.BatteryWatcher">
+            <intent-filter>
                 <action android:name="com.sheng00.BatteryStatus.BatteryWatcher"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
         <receiver android:name="com.sheng00.BatteryStatus.StartAtBootServiceReceiver">
 			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED">
-				</action>
-				<category android:name="android.intent.category.HOME">
-				</category>
+				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+				<action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+				<category android:name="android.intent.category.HOME"/>
 			</intent-filter>
 		</receiver>
 

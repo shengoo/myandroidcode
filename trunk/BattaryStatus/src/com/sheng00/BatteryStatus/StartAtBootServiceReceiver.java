@@ -14,27 +14,23 @@ import android.widget.Toast;
 
 /**
  * @author ShengQing on 2011-5-10
- *
+ * 
  */
-public class StartAtBootServiceReceiver extends BroadcastReceiver  {
-	
+public class StartAtBootServiceReceiver extends BroadcastReceiver {
 
 	private SharedPreferences prefs;
 	private boolean debug = false;
 
 	@Override
-	public void onReceive(Context context, Intent intent) 
-	{
+	public void onReceive(Context context, Intent intent) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		boolean checked = prefs.getBoolean(context.getString(R.string.auto_boot_checkbox), true);
-		if(debug)
-			Toast.makeText(context, "checked:" + checked, Toast.LENGTH_SHORT).show();
-		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-			if (checked) {
-				Intent i = new Intent();
-				i.setAction(BatteryWatcher.class.getName());
-				context.startService(i);
-			}
+		if (debug)
+			Toast.makeText(context, intent.getAction(), Toast.LENGTH_SHORT).show();
+		if (checked) {
+			Intent i = new Intent();
+			i.setAction(BatteryWatcher.class.getName());
+			context.startService(new Intent(context, BatteryWatcher.class));
 		}
 	}
 }
