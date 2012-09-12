@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">AndroidTcpTest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="iphint">ip</string>
+    <string name="port">port</string>
+    <string name="content">content</string>
+    <string name="connect">connect</string>
+    <string name="send">send</string>
+
+</resources>
