@@ -44,7 +44,6 @@ public class MainActivity extends Activity {
 		cbtn = (Button) findViewById(R.id.button1);
 		cbtn.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ip = ((EditText) findViewById(R.id.editText1)).getText()
@@ -59,7 +58,6 @@ public class MainActivity extends Activity {
 		sbtn = (Button) findViewById(R.id.button2);
 		sbtn.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ip = ((EditText) findViewById(R.id.editText1)).getText()
@@ -107,11 +105,13 @@ public class MainActivity extends Activity {
 		try {
 			is = socket.getInputStream();
 			os = socket.getOutputStream();
-			os.write(content.getBytes());
+
+	        DataOutputStream dos = new DataOutputStream(os);  
+	        BufferedReader brNet = new BufferedReader(new InputStreamReader(is));  
+	        dos.writeBytes(content + System.getProperty("line.separator"));  
 			output("Send:" + content);
-			byte[] b = new byte[20];
-			is.read(b);
-			output("Receive:" + new String(b));
+			String result = brNet.readLine();
+			output("Receive:" + result);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
