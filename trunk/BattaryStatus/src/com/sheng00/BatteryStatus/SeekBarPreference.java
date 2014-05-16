@@ -1,6 +1,6 @@
 package com.sheng00.BatteryStatus;
 
-import com.sheng00.BattaryStatus.R;
+import com.sheng00.BatteryStatus.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

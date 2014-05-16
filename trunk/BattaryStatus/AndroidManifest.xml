@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.sheng00.BattaryStatus"
+      package="com.sheng00.BatteryStatus"
       android:versionCode="9"
       android:versionName="2.1">
     <uses-sdk android:minSdkVersion="7" />
